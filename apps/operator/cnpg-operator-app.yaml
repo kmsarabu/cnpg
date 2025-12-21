@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kmsarabu/cnpg.git
+    targetRevision: main
+    path: charts/cnpg-operator   # <-- CHANGE to your chart folder
+    helm:
+      releaseName: cnpg
+      values: |
+        namespaceOverride: cnpg-system
+        # If your chart supports it, ensure CRDs install:
+        # installCRDs: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
