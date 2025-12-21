@@ -1,27 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cnpg-operator
+  name: cloudnative-pg
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/kmsarabu/cnpg.git
-    targetRevision: main
-    path: charts/cnpg-operator   # <-- CHANGE to your chart folder
-    helm:
-      releaseName: cnpg
-      values: |
-        namespaceOverride: cnpg-system
-        # If your chart supports it, ensure CRDs install:
-        # installCRDs: true
+   repoURL: https://github.com/kmsarabu/cnpg.git
+   targetRevision: dev
+   path: charts/cloudnative-pg
+   helm:
+    valueFiles:
+      - ../../env/dev/values.yaml
   destination:
-    server: https://kubernetes.default.svc
-    namespace: cnpg-system
+   server: https://kubernetes.default.svc
+   namespace: cnpg-system
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-
+   automated:
+     prune: true
+     selfHeal: true
+   syncOptions:
+     - createnamespace=true
+     - ServerSideApply=true
