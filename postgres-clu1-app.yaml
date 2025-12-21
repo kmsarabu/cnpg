@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-clu1
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kmsarabu/cnpg.git
+    targetRevision: dev
+    path: apps/clusters/clu1
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: postgres
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

@@ -11,5 +11,16 @@ resources:
     cpu: 250m
     memory: 256Mi
   requests:
-    cpu: 250m
-    memory: 256Mi
+    cpu: 1000m
+    memory: 512Mi
+
+livenessProbe:
+  timeoutSeconds: 5
+  periodSeconds: 10
+readinessProbe:
+  timeoutSeconds: 5
+  periodSeconds: 10
+startupProbe:
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 30
