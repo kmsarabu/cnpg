@@ -15,4 +15,16 @@ spec:
         name: pg1-appuser
   superuserSecret:
     name: pg1-superuser
-
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://cnpg-backups/pgclu1
+      endpointURL: http://minio.minio.svc.cluster.local:9000
+      s3Compatible: true
+      insecure: true
+      s3Credentials:
+        accessKeyId:
+          name: barman-minio
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: barman-minio
+          key: AWS_SECRET_ACCESS_KEY
