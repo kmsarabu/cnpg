@@ -33,7 +33,3 @@ spec:
         secretAccessKey:
           name: barman-minio
           key: AWS_SECRET_ACCESS_KEY
-  replica:
-    self:
-      role: primary
-      source: pgclu1
