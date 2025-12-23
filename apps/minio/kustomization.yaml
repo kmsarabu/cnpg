@@ -1,0 +1,4 @@
+resources:
+  - minio-secret.yaml
+  - minio-deployment.yaml
+  - minio-service.yaml
